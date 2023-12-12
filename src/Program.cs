@@ -12,9 +12,9 @@ builder.Services.ConfigureHttpJsonOptions(
 
 WebApplication app = builder.Build();
 
-RouteGroupBuilder helloWorldApi = app.MapGroup("/hello-world");
+RouteGroupBuilder authAPI = app.MapGroup("/auth");
 
-helloWorldApi.MapGet("/", () => "Hello World!");
+authAPI.MapPost("/register", () => Results.Created());
 
 app.Run();
 

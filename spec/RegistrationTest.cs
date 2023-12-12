@@ -34,7 +34,7 @@ public class RegistrationTest : IDisposable
     public async Task ValidRegistration()
     {
 		StringContent regPayload = Payload(Registration());
-		var response = await client.PostAsync("/register", regPayload);
+		var response = await client.PostAsync("/auth/register", regPayload);
 		Assert.Equal(HttpStatusCode.Created, response.StatusCode);
     }
 
@@ -44,7 +44,7 @@ public class RegistrationTest : IDisposable
 		StringContent regPayload = Payload(
 			Registration(email: "hello.world")
 		);
-		var response = await client.PostAsync("/register", regPayload);
+		var response = await client.PostAsync("/auth/register", regPayload);
 		Assert.Equal(
 			HttpStatusCode.UnprocessableContent, response.StatusCode
 		);
@@ -56,7 +56,7 @@ public class RegistrationTest : IDisposable
 		StringContent regPayload = Payload(
 			Registration(phoneNumber: "+4 aaaa")
 		);
-		var response = await client.PostAsync("/register", regPayload);
+		var response = await client.PostAsync("/auth/register", regPayload);
 		Assert.Equal(
 			HttpStatusCode.UnprocessableContent, response.StatusCode
 		);
@@ -71,7 +71,7 @@ public class RegistrationTest : IDisposable
 			["email"] = "Joking@example.com" 
 		};
 		StringContent regPayload = Payload(missingValsReg);
-		var response = await client.PostAsync("/register", regPayload);
+		var response = await client.PostAsync("/auth/register", regPayload);
 		Assert.Equal(
 			HttpStatusCode.BadRequest, response.StatusCode
 		);
@@ -85,7 +85,7 @@ public class RegistrationTest : IDisposable
 			["bar"] = "polo!" 
 		};
 		StringContent regPayload = Payload(missingValsReg);
-		var response = await client.PostAsync("/register", regPayload);
+		var response = await client.PostAsync("/auth/register", regPayload);
 		Assert.Equal(
 			HttpStatusCode.BadRequest, response.StatusCode
 		);
